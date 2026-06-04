@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartScheduler — AI Course Planning for UW Bothell</title>
+  <meta name="description" content="SmartScheduler is an AI-powered course scheduling assistant for UW Bothell students. Describe your schedule in plain English and get conflict-free, prerequisite-aware section recommendations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="top">
+    <a class="nav__brand" href="#top" aria-label="SmartScheduler home">
+      <span class="nav__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="none">
+          <rect x="2" y="5" width="28" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M2 11h28" stroke="currentColor" stroke-width="2"/>
+          <path d="M9 2v5M23 2v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 19.5l3.5 3.5 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>SmartScheduler</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#problem">Problem</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#stack">Tech</a>
+      <a href="#guide">Guide</a>
+      <a href="#team">Team</a>
+    </nav>
+    <a class="btn btn--small" href="https://uwb-smart-scheduler-67gg.vercel.app/" target="_blank" rel="noopener">Launch app</a>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__inner reveal">
+        <p class="eyebrow"><span class="dot"></span>CSS 382 Capstone &middot; University of Washington Bothell</p>
+        <h1 class="hero__title">
+          Build your quarter in
+          <span class="hero__accent">plain English.</span>
+        </h1>
+        <p class="hero__lede">
+          SmartScheduler is an AI course-planning assistant for UW Bothell students.
+          Describe what you need &mdash; the days you want free, your credit cap, the
+          requirements you still owe &mdash; and get back a conflict-free, prerequisite-aware
+          schedule in seconds.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="https://uwb-smart-scheduler-67gg.vercel.app/" target="_blank" rel="noopener">
+            Try the live app
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/yuqirichiechen/UWBSmartScheduler" target="_blank" rel="noopener">View source</a>
+        </div>
+        <div class="hero__terminal" aria-hidden="true">
+          <div class="term__bar"><span></span><span></span><span></span><em>smartscheduler</em></div>
+          <div class="term__body">
+            <p class="term__prompt"><span class="term__user">student</span> &gt; <span class="term__type">finish my CSS core, no Friday classes, keep me under 14 credits</span></p>
+            <p class="term__out"><span class="tag tag--ok">parsed</span> avoid: Fri &middot; max credits: 14 &middot; goal: CSS core</p>
+            <p class="term__out"><span class="tag tag--ok">eligible</span> filtered to prerequisite-met sections</p>
+            <p class="term__out"><span class="tag tag--purple">schedule</span> CSS&nbsp;360&nbsp;B &middot; CSS&nbsp;342&nbsp;A &middot; CSS&nbsp;301&nbsp;A <span class="muted">— 13 cr, 0 conflicts</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROBLEM ===== -->
+    <section class="section" id="problem">
+      <div class="section__head reveal">
+        <span class="kicker">01 / The problem</span>
+        <h2>Registration shouldn't take three browser tabs and a spreadsheet.</h2>
+      </div>
+      <div class="problem reveal">
+        <div class="problem__copy">
+          <p>
+            Every quarter, UW Bothell students juggle <strong>MyPlan</strong>, the
+            <strong>Time Schedule</strong>, and their <strong>degree audit</strong> at the
+            same time &mdash; manually cross-referencing which sections are open, which ones
+            collide, and which prerequisites they've actually cleared. It's tedious, easy to
+            get wrong, and it punishes the students with the most constraints: jobs, commutes,
+            and care responsibilities.
+          </p>
+          <p>
+            SmartScheduler collapses that workflow into a single sentence. It reads the live
+            UW Bothell Time Schedule, understands a student's real-world constraints, and does
+            the cross-referencing for them &mdash; so planning a quarter feels like asking an
+            advisor, not auditing a database.
+          </p>
+        </div>
+        <ul class="problem__pains">
+          <li><span class="x">✕</span> Tabs that don't talk to each other</li>
+          <li><span class="x">✕</span> Hidden time conflicts between sections</li>
+          <li><span class="x">✕</span> Prerequisites buried in the catalog</li>
+          <li><span class="x">✕</span> No quick "what fits my week?" answer</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="section section--alt" id="features">
+      <div class="section__head reveal">
+        <span class="kicker">02 / What it does</span>
+        <h2>Section-level scheduling that respects your real constraints.</h2>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Natural-language interface</h3>
+          <p>Type your needs the way you'd say them out loud. No filters, no forms &mdash; just a sentence.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Section-level awareness</h3>
+          <p>Recommendations name the exact section and meeting times &mdash; not just a course code.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Day &amp; time constraints</h3>
+          <p>Block out Fridays, mornings, or a work shift. The planner only offers sections that fit.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M4 19V7a2 2 0 012-2h3l2 2h7a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Credit-load limits</h3>
+          <p>Set a ceiling and the schedule stays under it &mdash; ideal for working students balancing a part-time load.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Prerequisite enforcement</h3>
+          <p>Courses you're not eligible for are filtered out before they're ever suggested.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3>Conflict detection</h3>
+          <p>Every returned schedule is checked for overlapping meeting times &mdash; guaranteed clash-free.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section" id="how">
+      <div class="section__head reveal">
+        <span class="kicker">03 / Under the hood</span>
+        <h2>An AI that proposes &mdash; and code that disposes.</h2>
+        <p class="section__sub">
+          SmartScheduler pairs a retrieval-augmented language model with a deterministic
+          validator. The model is creative; the validator is strict. You only ever see a
+          schedule that survives both.
+        </p>
+      </div>
+
+      <div class="pipeline reveal" role="img" aria-label="Pipeline: student query, then constraint parsing, then retrieval over course data, then Gemini selection, then deterministic validation, producing a validated schedule.">
+        <div class="pipe__step">
+          <span class="pipe__num">1</span>
+          <h4>Student query</h4>
+          <p>Plain-English request</p>
+        </div>
+        <div class="pipe__arrow" aria-hidden="true"></div>
+        <div class="pipe__step">
+          <span class="pipe__num">2</span>
+          <h4>Constraint parsing</h4>
+          <p>Days, credits, required courses</p>
+        </div>
+        <div class="pipe__arrow" aria-hidden="true"></div>
+        <div class="pipe__step">
+          <span class="pipe__num">3</span>
+          <h4>Catalog retrieval</h4>
+          <p>RAG grounding on real offerings</p>
+        </div>
+        <div class="pipe__arrow" aria-hidden="true"></div>
+        <div class="pipe__step pipe__step--ai">
+          <span class="pipe__num">4</span>
+          <h4>Gemini selects</h4>
+          <p>Picks courses + sections</p>
+        </div>
+        <div class="pipe__arrow" aria-hidden="true"></div>
+        <div class="pipe__step pipe__step--check">
+          <span class="pipe__num">5</span>
+          <h4>Deterministic check</h4>
+          <p>Prereqs + conflicts validated</p>
+        </div>
+        <div class="pipe__arrow" aria-hidden="true"></div>
+        <div class="pipe__step pipe__step--out">
+          <span class="pipe__num">✓</span>
+          <h4>Validated schedule</h4>
+          <p>Conflict-free &amp; eligible</p>
+        </div>
+      </div>
+
+      <p class="pipeline__note reveal">
+        <span class="mono">fallback&nbsp;→</span> If a model pick has an unmet prerequisite or a
+        time clash, SmartScheduler rejects the selection and a deterministic builder produces a
+        guaranteed-valid schedule instead. The catalog runs in inline-RAG mode, keeping token
+        usage tiny.
+      </p>
+    </section>
+
+    <!-- ===== TECH STACK ===== -->
+    <section class="section section--alt" id="stack">
+      <div class="section__head reveal">
+        <span class="kicker">04 / Built with</span>
+        <h2>A lean, modern stack.</h2>
+      </div>
+      <div class="stack reveal">
+        <div class="stack__col">
+          <h3>Backend</h3>
+          <ul>
+            <li><strong>FastAPI</strong><span>Python API server</span></li>
+            <li><strong>BeautifulSoup + requests</strong><span>UW Bothell Time Schedule scraper</span></li>
+            <li><strong>SHA-256 JSON cache</strong><span>Validated course snapshots</span></li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <h3>AI / ML</h3>
+          <ul>
+            <li><strong>Google Gemini</strong><span>gemini-2.5-flash</span></li>
+            <li><strong>Inline-catalog RAG</strong><span>Grounded course retrieval</span></li>
+            <li><strong>ScheduleBuilder + ConflictChecker</strong><span>Deterministic validation</span></li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <h3>Frontend</h3>
+          <ul>
+            <li><strong>React 18</strong><span>Single-page interface</span></li>
+            <li><strong>Axios</strong><span>API client</span></li>
+            <li><strong>Vercel</strong><span>Hosting &amp; serverless deploy</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== USER GUIDE ===== -->
+    <section class="section" id="guide">
+      <div class="section__head reveal">
+        <span class="kicker">05 / Using it</span>
+        <h2>Three steps to a planned quarter.</h2>
+      </div>
+      <ol class="guide reveal">
+        <li>
+          <span class="guide__n">01</span>
+          <div>
+            <h3>Describe your quarter</h3>
+            <p>Open the app and type what you need in plain English &mdash; e.g. <em>"finish my CSS core requirements, only on campus Tuesday and Thursday, under 14 credits."</em> Optionally list the courses you've already completed.</p>
+          </div>
+        </li>
+        <li>
+          <span class="guide__n">02</span>
+          <div>
+            <h3>Review your recommendations</h3>
+            <p>SmartScheduler returns specific sections with their meeting times and a short rationale, drawn from the live UW Bothell Time Schedule and filtered to courses you're eligible for.</p>
+          </div>
+        </li>
+        <li>
+          <span class="guide__n">03</span>
+          <div>
+            <h3>Confirm it's conflict-free</h3>
+            <p>Each schedule is pre-checked for time clashes and unmet prerequisites. See a green all-clear, then take it to MyPlan to register with confidence.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== TEAM ===== -->
+    <section class="section section--alt" id="team">
+      <div class="section__head reveal">
+        <span class="kicker">06 / The team</span>
+        <h2>Three students, one capstone.</h2>
+      </div>
+      <div class="team reveal">
+        <article class="member">
+          <div class="member__avatar" aria-hidden="true">RC</div>
+          <h3>Richie Chen</h3>
+          <p class="member__role">Backend / Data Pipeline</p>
+          <p>UW Bothell Time Schedule scraper, course data validation, and caching.</p>
+        </article>
+        <article class="member">
+          <div class="member__avatar" aria-hidden="true">KV</div>
+          <h3>Kevin Vo</h3>
+          <p class="member__role">LLM / RAG Integration</p>
+          <p>Retrieval pipeline, prompt engineering, and conflict-detection logic.</p>
+        </article>
+        <article class="member">
+          <div class="member__avatar" aria-hidden="true">YA</div>
+          <h3>Yousuf Al-Bassyiouni</h3>
+          <p class="member__role">Frontend / UX</p>
+          <p>Web interface design, query input, and schedule visualization.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CTA STRIP ===== -->
+    <section class="cta-strip reveal">
+      <h2>Plan your next quarter in a sentence.</h2>
+      <a class="btn btn--primary btn--lg" href="https://uwb-smart-scheduler-67gg.vercel.app/" target="_blank" rel="noopener">
+        Open SmartScheduler
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <a class="nav__brand nav__brand--footer" href="#top">
+          <span class="nav__mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="22" height="22" fill="none">
+              <rect x="2" y="5" width="28" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M2 11h28" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 2v5M23 2v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 19.5l3.5 3.5 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>SmartScheduler</span>
+        </a>
+        <p class="footer__note">A CSS 382 Capstone project at the University of Washington Bothell.</p>
+      </div>
+      <div class="footer__links">
+        <a href="https://github.com/yuqirichiechen/UWBSmartScheduler" target="_blank" rel="noopener">GitHub repository ↗</a>
+        <a href="https://uwb-smart-scheduler-67gg.vercel.app/" target="_blank" rel="noopener">Live app ↗</a>
+      </div>
+    </div>
+    <p class="footer__copy">© <span id="year"></span> SmartScheduler · Built by Richie Chen, Kevin Vo &amp; Yousuf Al-Bassyiouni</p>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth-scroll for in-page nav (respects sticky header offset)
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var id = link.getAttribute('href');
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Scroll-reveal (subtle, staggered)
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    // Nav shadow on scroll
+    var nav = document.querySelector('.nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+    }, { passive: true });
+  </script>
+</body>
+</html>
